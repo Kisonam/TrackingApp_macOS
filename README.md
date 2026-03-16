@@ -65,6 +65,21 @@ open TrackingApp.app
 cp -r TrackingApp.app /Applications/
 ```
 
+### Quick Start (Developers)
+
+```bash
+git clone https://github.com/yourusername/TrackingApp.git
+cd TrackingApp
+bash build_app.sh && open TrackingApp.app
+```
+
+### Quick Start (Users - if binary is available on Releases)
+
+```bash
+curl -L https://github.com/yourusername/TrackingApp/releases/latest/download/TrackingApp.app.zip -o TrackingApp.app.zip
+unzip TrackingApp.app.zip && open TrackingApp.app
+```
+
 ---
 
 ## 🔧 Configuration
