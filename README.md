@@ -68,7 +68,7 @@ cp -r TrackingApp.app /Applications/
 ### Quick Start (Developers)
 
 ```bash
-git clone https://github.com/yourusername/TrackingApp.git
+git clone https://github.com/Kisonam/TrackingApp.git
 cd TrackingApp
 bash build_app.sh && open TrackingApp.app
 ```
@@ -76,7 +76,7 @@ bash build_app.sh && open TrackingApp.app
 ### Quick Start (Users - if binary is available on Releases)
 
 ```bash
-curl -L https://github.com/yourusername/TrackingApp/releases/latest/download/TrackingApp.app.zip -o TrackingApp.app.zip
+curl -L https://github.com/Kisonam/TrackingApp/releases/latest/download/TrackingApp.app.zip -o TrackingApp.app.zip
 unzip TrackingApp.app.zip && open TrackingApp.app
 ```
 
@@ -146,7 +146,7 @@ service cloud.firestore {
 
 ```bash
 # Clone
-git clone https://github.com/yourusername/TrackingApp.git
+git clone https://github.com/Kisonam/TrackingApp.git
 cd TrackingApp
 
 # Build
@@ -249,7 +249,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## 🔧 Встановлення
 
 ```bash
-git clone https://github.com/yourusername/TrackingApp.git
+git clone https://github.com/Kisonam/TrackingApp.git
 cd TrackingApp
 bash build_app.sh
 open TrackingApp.app
@@ -283,7 +283,7 @@ open TrackingApp.app
 ## 🔧 Instalacja
 
 ```bash
-git clone https://github.com/yourusername/TrackingApp.git
+git clone https://github.com/Kisonam/TrackingApp.git
 cd TrackingApp
 bash build_app.sh
 open TrackingApp.app
