@@ -28,7 +28,13 @@ final class AppSettings: ObservableObject {
         didSet { UserDefaults.standard.set(firebaseProjectId, forKey: "firebaseProjectId") }
     }
     @Published var firebaseApiKey: String {
-        didSet { UserDefaults.standard.set(firebaseApiKey, forKey: "firebaseApiKey") }
+        didSet { 
+            if !firebaseApiKey.isEmpty {
+                KeychainService.shared.save(key: "firebaseApiKey", string: firebaseApiKey)
+            } else {
+                KeychainService.shared.delete(key: "firebaseApiKey")
+            }
+        }
     }
     @Published var firebaseCollection: String {
         didSet { UserDefaults.standard.set(firebaseCollection, forKey: "firebaseCollection") }
@@ -53,7 +59,7 @@ final class AppSettings: ObservableObject {
 
         self.firebaseEnabled = UserDefaults.standard.bool(forKey: "firebaseEnabled")
         self.firebaseProjectId = UserDefaults.standard.string(forKey: "firebaseProjectId") ?? ""
-        self.firebaseApiKey = UserDefaults.standard.string(forKey: "firebaseApiKey") ?? ""
+        self.firebaseApiKey = KeychainService.shared.readString(key: "firebaseApiKey") ?? ""
         self.firebaseCollection = UserDefaults.standard.string(forKey: "firebaseCollection") ?? "app_usage"
     }
 

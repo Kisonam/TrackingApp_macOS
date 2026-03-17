@@ -5,6 +5,8 @@ final class FirebaseService {
     private init() {}
 
     private var isSyncing = false
+    private var lastSyncTime: Date?
+    private let minSyncInterval: TimeInterval = 60 // 1 minute
 
     // MARK: - Sync to Firestore
 
@@ -20,6 +22,14 @@ final class FirebaseService {
         }
         guard !isSyncing else {
             completion(.failure(FirebaseError.alreadySyncing))
+            return
+        }
+        
+        // Rate limiting
+        if let lastSync = lastSyncTime,
+           Date().timeIntervalSince(lastSync) < minSyncInterval {
+            let remaining = Int(minSyncInterval - Date().timeIntervalSince(lastSync))
+            completion(.failure(FirebaseError.rateLimited(remaining)))
             return
         }
 
@@ -98,6 +108,7 @@ final class FirebaseService {
         group.notify(queue: .main) { [weak self] in
             self?.isSyncing = false
             if successCount > 0 {
+                self?.lastSyncTime = Date() // Update last sync time on success
                 completion(.success(successCount))
             } else if let error = lastError {
                 completion(.failure(error))
@@ -113,6 +124,7 @@ final class FirebaseService {
 enum FirebaseError: LocalizedError {
     case missingProjectId
     case alreadySyncing
+    case rateLimited(Int) // seconds remaining
     case invalidURL
     case encodingFailed
     case serverError(String)
@@ -121,6 +133,7 @@ enum FirebaseError: LocalizedError {
         switch self {
         case .missingProjectId: return "Firebase Project ID is missing"
         case .alreadySyncing: return "Sync already in progress"
+        case .rateLimited(let seconds): return "Please wait \(seconds) seconds before next sync"
         case .invalidURL: return "Invalid Firestore URL"
         case .encodingFailed: return "Failed to encode data"
         case .serverError(let msg): return "Server: \(msg)"
