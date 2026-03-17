@@ -12,6 +12,7 @@ struct SettingsView: View {
         case syncing
         case success(Int)
         case error(String)
+        case rateLimited(Int)
     }
 
     var body: some View {
@@ -114,6 +115,10 @@ struct SettingsView: View {
                                     .font(.caption)
                                     .foregroundStyle(.red)
                                     .lineLimit(2)
+                            case .rateLimited(let seconds):
+                                Text(s.firebaseRateLimited(seconds))
+                                    .font(.caption)
+                                    .foregroundStyle(.orange)
                             default:
                                 EmptyView()
                             }
@@ -138,7 +143,12 @@ struct SettingsView: View {
             case .success(let count):
                 syncStatus = .success(count)
             case .failure(let error):
-                syncStatus = .error(error.localizedDescription)
+                if let firebaseError = error as? FirebaseError,
+                   case .rateLimited(let seconds) = firebaseError {
+                    syncStatus = .rateLimited(seconds)
+                } else {
+                    syncStatus = .error(error.localizedDescription)
+                }
             }
         }
     }

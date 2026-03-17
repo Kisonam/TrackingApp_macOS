@@ -98,6 +98,7 @@ struct Strings {
     var firebaseSyncing: String { t("Syncing…", "Синхронізація…", "Synchronizacja…") }
     func firebaseSyncSuccess(_ n: Int) -> String { t("\(n) apps synced", "\(n) додатків синхронізовано", "\(n) aplikacji zsynchronizowanych") }
     var firebaseSyncError: String { t("Sync failed", "Помилка синхронізації", "Błąd synchronizacji") }
+    func firebaseRateLimited(_ seconds: Int) -> String { t("Please wait \(seconds)s before next sync", "Зачекайте \(seconds)с перед наступною синхронізацією", "Poczekaj \(seconds)s przed następną synchronizacją") }
     var firebaseHint: String { t("Data will be sent to Firestore for display on your website", "Дані будуть надіслані до Firestore для відображення на сайті", "Dane zostaną wysłane do Firestore w celu wyświetlenia na stronie") }
 
     // MARK: - Time Formatting

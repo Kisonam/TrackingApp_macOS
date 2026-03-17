@@ -39,6 +39,10 @@ final class AppMonitorService: ObservableObject {
         guard let frontApp = NSWorkspace.shared.frontmostApplication,
               let bundleId = frontApp.bundleIdentifier,
               let name = frontApp.localizedName else { return }
+        
+        // Skip system apps
+        guard !SystemAppFilter.shouldHide(bundleId) else { return }
+        guard !SystemAppFilter.shouldHideProcess(name) else { return }
 
         activeAppBundleId = bundleId
         db.recordUsage(bundleIdentifier: bundleId, appName: name)
@@ -52,6 +56,11 @@ final class AppMonitorService: ObservableObject {
             .compactMap { app -> RunningAppInfo? in
                 guard let bundleId = app.bundleIdentifier,
                       let name = app.localizedName else { return nil }
+                
+                // Skip system apps
+                guard !SystemAppFilter.shouldHide(bundleId) else { return nil }
+                guard !SystemAppFilter.shouldHideProcess(name) else { return nil }
+                
                 return RunningAppInfo(
                     id: bundleId,
                     name: name,

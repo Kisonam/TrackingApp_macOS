@@ -249,7 +249,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## 🔧 Встановлення
 
 ```bash
-git clone https://github.com/yourusername/TrackingApp.git
+git clone https://github.com/Kisonam/TrackingApp.git
 cd TrackingApp
 bash build_app.sh
 open TrackingApp.app
@@ -283,7 +283,7 @@ open TrackingApp.app
 ## 🔧 Instalacja
 
 ```bash
-git clone https://github.com/yourusername/TrackingApp.git
+git clone https://github.com/Kisonam/TrackingApp.git
 cd TrackingApp
 bash build_app.sh
 open TrackingApp.app
