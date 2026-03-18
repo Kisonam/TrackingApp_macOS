@@ -25,7 +25,7 @@ struct AppLibraryView: View {
     private var s: Strings { settings.strings }
 
     private var filteredApps: [AppUsageRecord] {
-        var list = allApps
+        var list = allApps.filter { !SystemAppFilter.shouldHide($0.bundleIdentifier) }
         if !searchText.isEmpty {
             list = list.filter {
                 $0.appName.localizedCaseInsensitiveContains(searchText) ||
