@@ -122,17 +122,17 @@ struct StatisticsView: View {
         switch selectedPeriod {
         case .today:
             let dateStr = formatter.string(from: selectedDate)
-            records = db.usageForDate(dateStr)
+            records = db.usageForDate(dateStr).filter { !SystemAppFilter.shouldHide($0.bundleIdentifier) }
         case .week:
             let to = formatter.string(from: Date())
             let from = formatter.string(from: Calendar.current.date(byAdding: .day, value: -7, to: Date())!)
-            records = db.usageForPeriod(from: from, to: to)
+            records = db.usageForPeriod(from: from, to: to).filter { !SystemAppFilter.shouldHide($0.bundleIdentifier) }
         case .month:
             let to = formatter.string(from: Date())
             let from = formatter.string(from: Calendar.current.date(byAdding: .month, value: -1, to: Date())!)
-            records = db.usageForPeriod(from: from, to: to)
+            records = db.usageForPeriod(from: from, to: to).filter { !SystemAppFilter.shouldHide($0.bundleIdentifier) }
         case .allTime:
-            records = db.allTimeUsage()
+            records = db.allTimeUsage().filter { !SystemAppFilter.shouldHide($0.bundleIdentifier) }
         }
     }
 }

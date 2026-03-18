@@ -72,6 +72,9 @@ final class DatabaseManager {
     // MARK: - Record Usage
 
     func recordUsage(bundleIdentifier: String, appName: String, seconds: Int64 = 1) {
+        // Skip system apps
+        guard !SystemAppFilter.shouldHide(bundleIdentifier) else { return }
+        
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd"
         let today = formatter.string(from: Date())
